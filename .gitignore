@@ -1,0 +1,22 @@
+
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Application logs
+app.log
+app_backup.log
+
+# Local monitoring history
+monitoring_history.csv
+
+# Environment variables and secrets
+.env
+.env.*
+
+# IDE files
+.vscode/
+.idea/
+
+app_pre_docker.py
