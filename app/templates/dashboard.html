@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}CloudGuard | Overview{% endblock %}
+{% block page_name %}Overview{% endblock %}
+
+{% block head %}
+<meta http-equiv="refresh" content="10">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Infrastructure Overview</h1>
+        <p>Monitor system health and resource utilization.</p>
+    </div>
+
+    <div class="last-updated">
+        Last updated: {{ metrics.timestamp }}
+    </div>
+</div>
+
+<div class="overview-grid">
+
+    <div class="overview-card">
+        <div class="card-label">APPLICATION STATUS</div>
+        <div class="status-value">
+            <span class="status-dot"></span>
+            {{ status }}
+        </div>
+        <p class="card-description">Current application health</p>
+    </div>
+
+    <div class="overview-card">
+        <div class="card-label">CPU UTILIZATION</div>
+        <div class="metric-value">
+            {{ metrics.cpu_usage }}<span>%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill cpu-fill"
+                 style="width: {{ [metrics.cpu_usage, 100]|min }}%;">
+            </div>
+        </div>
+        <p class="card-description">
+            Configured threshold: {{ cpu_limit }}%
+        </p>
+    </div>
+
+    <div class="overview-card">
+        <div class="card-label">MEMORY UTILIZATION</div>
+        <div class="metric-value">
+            {{ metrics.memory_usage }}<span>%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill memory-fill"
+                 style="width: {{ [metrics.memory_usage, 100]|min }}%;">
+            </div>
+        </div>
+        <p class="card-description">
+            Configured threshold: {{ memory_limit }}%
+        </p>
+    </div>
+
+    <div class="overview-card">
+        <div class="card-label">ACTIVE INCIDENTS</div>
+        <div class="metric-value">{{ incidents|length }}</div>
+        <p class="card-description">Currently detected conditions</p>
+    </div>
+
+</div>
+
+<div class="section-heading">
+    <h2>Monitoring Incidents</h2>
+    <span>{{ incidents|length }} detected</span>
+</div>
+
+<div class="incident-panel">
+
+    {% if incidents %}
+
+        {% for incident in incidents %}
+
+        <div class="incident-row">
+
+            <span class="severity severity-{{ incident.severity|lower }}">
+                {{ incident.severity }}
+            </span>
+
+            <div class="incident-details">
+                <strong>{{ incident.type }}</strong>
+                <p>{{ incident.message }}</p>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-state">
+            <div class="empty-icon">✓</div>
+            <strong>No active incidents</strong>
+            <p>All monitored resources are within configured thresholds.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+<div class="section-heading">
+    <h2>Application Controls</h2>
+</div>
+
+<div class="control-panel">
+
+    <div>
+        <strong>Failure Simulation</strong>
+        <p>Test CloudGuard's incident detection and recovery workflow.</p>
+    </div>
+
+    <div class="control-actions">
+        <form action="/simulate-failure" method="POST">
+            <button class="btn btn-danger" type="submit">
+                Simulate Failure
+            </button>
+        </form>
+
+        <form action="/recover" method="POST">
+            <button class="btn btn-success" type="submit">
+                Recover Application
+            </button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,4 +1,26 @@
+# Python environment and cache
 venv/
 __pycache__/
+**/__pycache__/
 *.pyc
+*.pyo
+
+# Git
 .git/
+.gitignore
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Local logs and monitoring data
+*.log
+monitoring_history.csv
+
+# Development backups
+app_legacy.py
+app_pre_docker.py
+
+# IDE files
+.vscode/
+.idea/

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}CloudGuard | Monitoring History{% endblock %}
+{% block page_name %}Monitoring History{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Monitoring History</h1>
+        <p>Review previously collected system performance records.</p>
+    </div>
+</div>
+
+<div class="section-heading">
+    <h2>Recent Monitoring Records</h2>
+    <span>{{ records|length }} records</span>
+</div>
+
+<div class="incident-panel">
+
+    {% if records %}
+
+    <div class="history-table-wrapper">
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>CPU Usage</th>
+                    <th>Memory Usage</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record["Timestamp"] }}</td>
+                    <td>{{ record["CPU Usage"] }}%</td>
+                    <td>{{ record["Memory Usage"] }}%</td>
+                    <td>{{ record["Status"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        <strong>No monitoring records available</strong>
+        <p>Records will appear here when monitoring data is collected.</p>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

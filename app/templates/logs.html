@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}CloudGuard | Event Logs{% endblock %}
+{% block page_name %}Event Logs{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Application Event Logs</h1>
+        <p>Review recent CloudGuard application events and activity.</p>
+    </div>
+</div>
+
+<div class="section-heading">
+    <h2>Recent Events</h2>
+    <span>{{ records|length }} entries</span>
+</div>
+
+<div class="incident-panel">
+
+    {% if records %}
+
+        <div class="log-container">
+            {% for record in records %}
+                <div class="log-entry">{{ record }}</div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+            <strong>No log entries available</strong>
+            <p>Application events will appear here when logs are generated.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

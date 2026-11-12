@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}CloudGuard{% endblock %}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">C</div>
+                <span>CloudGuard</span>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="sidebar-label">MONITORING</p>
+
+                <a href="/" class="nav-link active">
+                    <span>◈</span> Overview
+                </a>
+
+                <a href="/api/metrics" class="nav-link">
+                    <span>⌁</span> Metrics API
+                </a>
+
+                <a href="/history" class="nav-link">
+                    <span>▤</span> History
+                </a>
+
+                <a href="/logs" class="nav-link">
+                    <span>≡</span> Event Logs
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <span class="status-dot"></span>
+                Monitoring System
+                <small>CloudGuard v2.0</small>
+            </div>
+
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <span class="breadcrumb">CloudGuard /</span>
+                    <strong>{% block page_name %}Overview{% endblock %}</strong>
+                </div>
+
+                <div class="system-indicator">
+                    <span class="status-dot"></span>
+                    System Monitoring
+                </div>
+            </header>
+
+            <section class="page-content">
+                {% block content %}{% endblock %}
+            </section>
+
+        </main>
+
+    </div>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>
